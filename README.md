@@ -17,7 +17,7 @@ review process.
 
 2. Add the OpenAI Endpoint as a GitHub Secret in your repository with the name `OPENAI_ENDPOINT`.
 
-3. Add the OpenAI Model as a GitHub Secret in your repository with the name `OPENAI_MODEL`.
+3. Add the OpenAI Header as a GitHub Secret in your repository with the name `OPENAI_API_KEY_HEADER`.
 
 4. Add th OpenAI KEY as a GitHub Secret in your repository with the name `OPENAI_API_KEY`. You can find more
    information about GitHub Secrets [here](https://docs.github.com/en/actions/reference/encrypted-secrets).
@@ -42,11 +42,10 @@ jobs:
       - name: Run PR Review using OpenAI
         uses: your-username/openai_codereviewer@main  # Replace with your repo and branch
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          AZURE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          AZURE_OPENAI_ENDPOINT: ${{ secrets.OPENAI_ENDPOINT }}
-          AZURE_OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-          exclude: '*.md, *.txt'  # Optional, to exclude files
+          PAT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_KEY_HEADER: ${{ secrets.OPENAI_ENDPOINT }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
 
 ```
 
