@@ -1,0 +1,42 @@
+name: 'OpenAI PR Review'
+description: 'A GitHub Action that reviews PRs using OpenAI API'
+
+inputs:
+  PAT_TOKEN:
+    description: 'GitHub Token'
+    required: true
+  OPENAI_API_KEY:
+    description: 'OpenAI API key'
+    required: true
+  OPENAI_MODEL:
+    description: 'OpenAI model deployment name'
+    required: true
+  OPENAI_ENDPOINT:
+    description: 'OpenAI API endpoint'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r ${{github.action_path}}/requirements.txt
+      shell: bash
+      
+    - name: Run the OpenAI PR Review script
+      run: python ${{github.action_path}}/action.py
+      shell: bash
+      env:
+        PAT_TOKEN: ${{inputs.PAT_TOKEN}}
+        OPENAI_API_KEY: ${{inputs.OPENAI_API_KEY}}
+        OPENAI_MODEL: ${{inputs.OPENAI_MODEL}}
+        OPENAI_ENDPOINT: ${{inputs.OPENAI_ENDPOINT}}
+
+branding:
+  icon: 'user-check'
+  color: 'green'
